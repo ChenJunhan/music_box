@@ -15,7 +15,7 @@ class download(object):
     jsFile = open('core.js', 'r')
     content = jsFile.read()
     self.ctx = execjs.compile(content)
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='gb18030')  # 改变标准输出的默认编码 避免报'gbk' codec can't encode character '\uc5ec' in position 1092 错误
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf-8')  # 改变标准输出的默认编码 避免报'gbk' codec can't encode character '\uc5ec' in position 1092 错误
 
   # 搜索音乐列表
   def searchList(self):
@@ -93,6 +93,10 @@ class download(object):
     with open(saveDir + name, 'wb') as code:    
         code.write(d)
     print('成功下载到', saveDir, '目录中！')
+
+    isContinue = input('是否继续下载音乐? Y or N:')
+    if (isContinue == 'Y' or isContinue == 'y'):
+      self.searchList()
 
   # 发送请求
   def request(self, type, url, encSec):
